@@ -1,0 +1,99 @@
+#INSERT SIN AUTO INCREMENTO
+
+
+INSERT INTO friend VALUES (7, "Juan", "Rojas", 2)
+
+
+
+
+#CREAMO TABLA PAY
+
+
+
+CREATE TABLE pay (
+    id INT NOT NULL AUTO_INCREMENT,
+    amount REAL NOT NULL DEFAULT 0,
+    currency VARCHAR(20),
+    date_pay DATE NOT NULL,
+    pay_type VARCHAR(45),
+    id_system_user INT NOT NULL,
+    id_game INT NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY(id_system_user) REFERENCES system_user(id_system_user),
+    FOREIGN KEY(id_game) REFERENCES game(id_game)    
+    
+);
+
+
+
+
+
+#INSERT CON AUTO INCREMENTO
+
+INSERT INTO pay(amount,currency,date_pay,pay_type,id_system_user,id_game) VALUES (300,"U$S","2024-08-12","Paypal",30,10);
+
+
+#MULTIPLES INSERT
+
+INSERT INTO pay(amount,currency,date_pay,pay_type,id_system_user,id_game) VALUES 
+
+(140,"U$S","2024-06-22","Mercado Pago",15,3),
+(250,"U$S","2024-08-12","Paypal",22,5),
+(400,"U$S","2024-04-10","Paypal",10,22),
+(300,"U$S","2024-08-12","Paypal",30,10);
+
+
+
+
+#UPDATE
+
+UPDATE pay
+SET amount = 100
+
+
+#UPDATE + WHERE
+
+UPDATE pay
+SET amount = 350
+WHERE id = 1
+
+
+
+UPDATE pay
+SET amount = 500, pay_type = "Binance"
+WHERE id = 3
+
+
+
+#DELETE
+
+
+
+DELETE FROM pay
+WHERE id = 1
+
+
+#OJO
+DELETE FROM pay
+WHERE amount = 100
+
+
+
+#OJO FK
+
+DELETE FROM game
+WHERE id_game = 77
+
+
+DELETE FROM level_game
+WHERE id_level = 1
+
+
+
+
+
+
+
+
+
+

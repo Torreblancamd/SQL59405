@@ -1,0 +1,67 @@
+
+CREATE DATABASE IF NOT EXISTS db_hospital;
+USE db_hospital;
+
+
+CREATE TABLE sala (
+  id_sala int(11) NOT NULL AUTO_INCREMENT,
+  nombre varchar(45) DEFAULT NULL,
+  num_de_camas int(11) DEFAULT NULL,
+  PRIMARY KEY(id_sala)
+);
+
+CREATE TABLE paciente(
+  id_paciente int(11) NOT NULL AUTO_INCREMENT,
+  id_sala int(11) DEFAULT NULL,
+  codigo_paciente int(11) DEFAULT NULL,
+  apellido varchar(45) DEFAULT NULL,
+  nombre varchar(45) DEFAULT NULL,
+  direccion varchar(45) DEFAULT NULL,
+  fecha_nacimiento date DEFAULT NULL,
+  sexo varchar(45) DEFAULT NULL,
+  localidad varchar(45) DEFAULT NULL,
+  PRIMARY KEY(id_paciente),
+  FOREIGN KEY(id_sala) REFERENCES sala(id_sala)
+);
+
+
+CREATE TABLE doctor (
+  id_doctor int(11) NOT NULL AUTO_INCREMENT,
+  apellido varchar(45) DEFAULT NULL,
+  localidad varchar(45) DEFAULT NULL,
+  PRIMARY KEY(id_doctor)
+);
+
+
+CREATE TABLE atendido_por (
+  id_atendido int(11) NOT NULL AUTO_INCREMENT,
+  id_doctor int(11) DEFAULT NULL,
+  id_paciente int(11) DEFAULT NULL,
+  PRIMARY KEY(id_atendido),
+  FOREIGN KEY(id_doctor) REFERENCES doctor(id_doctor),
+  FOREIGN KEY(id_paciente) REFERENCES paciente(id_paciente)
+);
+
+CREATE TABLE especialidad(
+  id_especialidad int(11) NOT NULL AUTO_INCREMENT,
+  codigo_especialidad int(11) DEFAULT NULL,
+  nombre varchar(45) DEFAULT NULL,
+  PRIMARY KEY(id_especialidad)
+);
+
+CREATE TABLE ejerce (
+  id_ejerce int(11) NOT NULL AUTO_INCREMENT,
+  id_doctor int(11) DEFAULT NULL,
+  id_especialidad int(11) DEFAULT NULL,
+  PRIMARY KEY(id_ejerce),
+  FOREIGN KEY(id_doctor) REFERENCES doctor(id_doctor),
+  FOREIGN KEY(id_especialidad) REFERENCES especialidad(id_especialidad) 
+);
+
+
+
+
+
+
+
+

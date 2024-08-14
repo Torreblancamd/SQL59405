@@ -1,0 +1,157 @@
+
+
+CREATE VIEW lista_juegos AS 
+	(SELECT name, description 
+	FROM game)
+
+
+
+
+#JUEGOS NIVEL 7
+
+
+SELECT name, description
+FROM game
+WHERE id_level = 7
+
+
+
+
+
+
+#JUEGOS NIVEL 7 VIEW
+
+CREATE VIEW game_level_7 AS
+    SELECT name,description
+    FROM game
+    WHERE id_level = 7;
+
+
+
+
+CREATE VIEW cant_juego AS 
+	(SELECT name, COUNT(*) AS "Cantidad"
+    	FROM game
+    	GROUP BY name
+    	ORDER BY COUNT(*) DESC)
+
+
+
+
+# REPLACE VIEW
+
+CREATE OR REPLACE VIEW lista_juegos AS
+    (SELECT name
+    FROM game);
+
+
+
+
+
+
+
+#ALTER VIEW - MODIFICAR UNA COLUMNA
+
+ALTER VIEW game_level_7(name,description)
+AS
+SELECT upper(name),description
+FROM game;
+
+
+
+
+
+
+
+
+
+#ALTER VIEW add column
+
+
+ALTER VIEW game_level_7(name,description,id_class)
+AS
+SELECT upper(name),description,id_class
+FROM game;
+
+
+
+ALTER VIEW game_level_7(name,description,numero_clase)
+AS
+SELECT upper(name),description,id_class
+FROM game;
+
+
+
+
+
+#ALTER VIEW delete column
+
+ALTER VIEW game_level_7(name,description)
+AS
+SELECT upper(name),description
+FROM game
+
+
+
+
+
+#EJERCICIOS 
+
+
+CREATE VIEW e1 AS 
+	SELECT first_name, last_name
+	FROM system_user
+	WHERE email LIKE "%webnode.com%"
+
+
+
+
+
+
+SELECT *
+FROM system_user s
+JOIN play p 
+ON s.id_system_user = p.id_system_user
+WHERE email LIKE "%webnode.com%"
+
+
+
+
+
+
+
+CREATE VIEW e3 AS
+    SELECT g.name,v.value
+    FROM vote v 
+    JOIN game g 
+    ON v.id_game = g.id_game
+    WHERE v.value > 9;
+
+
+
+
+CREATE VIEW e4 AS
+	SELECT s.first_name,s.last_name,g.name 
+	FROM play p
+	JOIN game g 
+	ON p.id_game = g.id_game
+	JOIN system_user s 
+	ON p.id_system_user = s.id_system_user
+	WHERE g.name = "FIFA 22";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

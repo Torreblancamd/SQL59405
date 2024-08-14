@@ -1,0 +1,145 @@
+#DDL
+
+
+
+#CREATE
+
+CREATE DATABASE db_escuelas;
+
+
+CREATE DATABASE IF NOT EXISTS colegio2;
+
+
+
+USE colegio2;
+
+
+#CREATE TABLE
+
+
+CREATE TABLE escuelas (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  nombre varchar(45) DEFAULT NULL,
+  localidad varchar(45) DEFAULT NULL,
+  provincia varchar(45) DEFAULT NULL,
+  capacidad int(11) DEFAULT NULL,
+  PRIMARY KEY (id));
+
+
+
+CREATE TABLE alumnos (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  id_escuela int(11) DEFAULT NULL,
+  legajo int(11) DEFAULT NULL,
+  nombre varchar(45) DEFAULT NULL,
+  nota decimal(10,0) DEFAULT NULL,
+  grado int(11) DEFAULT NULL,
+  email varchar(45) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (id_escuela) REFERENCES escuelas(id));
+
+
+
+
+
+
+#ALTER TABLE
+
+#ADD COLUMN
+
+
+ALTER TABLE alumnos
+ADD nota_dos INT
+
+
+
+#MODIFY COLUMM
+
+ALTER TABLE alumnos
+MODIFY nota_dos FLOAT
+
+
+#DROP COLUMN
+
+ALTER TABLE alumnos
+DROP COLUMN nota_dos
+
+
+
+#DUPLICAR TABLA
+
+CREATE TABLE alumnos_dos LIKE alumnos 
+
+
+CREATE TABLE escuelas_copia AS SELECT * FROM escuelas
+
+
+
+
+#INSERT
+
+INSERT INTO escuelas(nombre,provincia,localidad,capacidad) VALUES ("Tecnica 3", "Buenos Aires","Pilar", 450)
+
+
+
+
+
+#TRUNCATE
+
+TRUNCATE TABLE escuelas
+
+DROP TABLE escuelas
+
+
+
+
+
+#FUNCIONES 
+
+
+#CONCAT 
+
+
+SELECT CONCAT(first_name, last_name) AS "Nombre Completo"
+FROM system_user;
+
+
+
+
+SELECT CONCAT(first_name," ", last_name) AS "Nombre Completo"
+FROM system_user;
+
+
+
+
+
+#UCASE
+
+SELECT UCASE(first_name) AS "Mayusculas"
+FROM system_user;
+
+
+
+#LCASE
+
+
+SELECT LCASE(first_name) AS "Minusculas"
+FROM system_user;
+
+
+
+#REVERSE
+
+SELECT REVERSE(first_name) AS "Minusculas"
+FROM system_user;
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,130 @@
+#INNER JOIN 
+
+
+SELECT *
+FROM vote AS v
+JOIN game AS g
+ON  v.id_game = g.id_game
+
+
+
+SELECT g.name, AVG(v.value)
+FROM vote AS v
+JOIN game AS g
+ON  v.id_game = g.id_game
+GROUP BY g.name
+ORDER BY AVG(v.value) DESC
+
+
+#INNER + LIMIT
+SELECT g.name, AVG(v.value)
+FROM vote AS v
+JOIN game AS g
+ON  v.id_game = g.id_game
+GROUP BY g.name
+ORDER BY AVG(v.value) DESC
+LIMIT 10
+
+
+#LEFT 
+
+SELECT *
+FROM alumnos a
+LEFT JOIN escuelas e
+ON a.id_escuela = e.id
+
+
+
+#RIGHT
+
+
+SELECT *
+FROM alumnos a
+RIGHT JOIN escuelas e
+ON a.id_escuela = e.id
+
+
+#UNION 
+
+SELECT id_game, name, description, id_level, id_class 
+FROM game
+WHERE id_level = 1
+UNION 
+SELECT id_game, name, description, id_level, id_class 
+FROM game
+WHERE id_level = 2
+
+
+#LIKE
+
+
+#RLIKE
+
+SELECT * 
+FROM game 
+WHERE name RLIKE "^[A-C]"
+
+
+SELECT * 
+FROM game 
+WHERE name RLIKE "F[A-Z]FA"
+
+
+
+SELECT *
+FROM system_user
+WHERE first_name LIKE "%ch%"
+
+
+SELECT *
+FROM system_user
+WHERE first_name NOT LIKE "%ch%"
+
+
+#SUBQUERY
+
+
+SELECT * FROM level_game WHERE description LIKE "level 1_"
+
+
+
+SELECT *
+FROM game
+WHERE id_level IN (SELECT id_level FROM level_game WHERE description LIKE "level 1_")
+
+
+
+SELECT id_system_user
+FROM vote WHERE value = (SELECT FLOOR(AVG(value)) FROM vote)
+
+
+
+
+
+SELECT id_game, SUM(value) AS votos
+FROM vote 
+WHERE id_game IN (SELECT id_game 
+FROM game WHERE id_level = 1)
+GROUP BY id_game
+
+
+
+
+
+SELECT id_game, name
+FROM game
+WHERE id_level = 1 AND
+id_game IN 
+(SELECT id_game
+FROM vote
+GROUP BY id_game
+HAVING count(*) > 1)
+
+
+
+
+
+
+
+
+

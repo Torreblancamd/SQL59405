@@ -1,0 +1,97 @@
+
+BETWEEN
+
+
+SELECT *
+FROM game
+WHERE id_game <= 10 AND id_game >= 7
+
+SELECT *
+FROM game
+WHERE id_game BETWEEN 7 AND 10
+
+
+SELECT *
+FROM game
+WHERE id_game NOT BETWEEN 7 AND 10
+
+
+
+
+
+1)Todos los comentarios sobre juegos desde 2019 en adelante
+
+SELECT commentary.comment_date , commentary.commentary
+FROM game,commentary
+WHERE game.id_game = commentary.id_game AND commentary.comment_date >= "2021-01-01
+
+
+2)Todos los comentarios sobre juegos anteriores a 2011.
+
+SELECT commentary.comment_date , commentary.commentary
+FROM game,commentary 
+WHERE game.id_game = commentary.id_game AND commentary.comment_date < "2011-01-01"
+
+
+3)Los usuarios y texto de aquellos comentarios sobre juegos cuyo código de juego (id_game) sea 73
+
+SELECT commentary.id_system_user , commentary.commentary
+FROM game,commentary 
+WHERE game.id_game = commentary.id_game AND game.id_game = 73
+
+
+
+4) Aquellos juegos sean de nivel 14, 5 ó 9.
+
+SELECT game.name, game.id_level
+FROM game,commentary 
+WHERE game.id_game = commentary.id_game AND game.id_level IN (14,5,9);
+
+
+5)Aquellos juegos cuyo nombre empiece con 'Gran'
+
+SELECT game.name
+FROM game,commentary 
+WHERE game.id_game = commentary.id_game AND game.name LIKE "Gran%"
+
+
+6)Aquellos juegos cuyo nombre contenga 'field'
+
+SELECT game.name
+FROM game,commentary 
+WHERE game.id_game = commentary.id_game AND game.name LIKE "%field%"
+
+
+#EJEMPLO AVG+GROUP BY
+
+SELECT id_game, AVG(value)
+FROM vote
+GROUP BY id_game
+ORDER BY AVG(value) DESC
+
+
+
+SELECT name , COUNT(*)
+FROM game
+GROUP BY name
+ORDER BY COUNT(*) DESC;
+
+
+#JUEGO CON 3
+SELECT COUNT(*), name
+FROM game
+GROUP BY name
+HAVING COUNT(*) >= 3
+ORDER BY COUNT(*) DESC;
+
+
+
+#INNER JOIN 
+
+SELECT g.name, AVG(v.value)
+FROM vote AS v
+JOIN game AS g
+ON  v.id_game = g.id_game
+GROUP BY g.name
+ORDER BY AVG(v.value) DESC
+LIMIT 10

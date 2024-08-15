@@ -1,0 +1,97 @@
+CREATE TABLE new_class (
+	id_level int NOT NULL,
+	id_class int NOT NULL,
+	description varchar(200) NOT NULL,
+	PRIMARY KEY(id_class,id_level)
+
+);
+
+
+CREATE TABLE new_level_game(
+	id_level int NOT NULL,
+	description varchar(200) NOT NULL,
+	PRIMARY KEY(id_level)
+
+);
+
+
+
+
+
+#INSERT
+
+
+INSERT INTO new_class(id_level,id_class,description) VALUES
+(17,10,"Adventure Other"),
+(15,1,"Spy Other"),
+(17,20,"British Comedy"),
+(17,30,"Adventure"),
+(14,1,""),
+(18,1,"");
+
+
+
+
+
+
+
+
+
+#INSERT+ SUBCONSULTA
+
+INSERT INTO new_level_game (id_level, description)  
+(
+SELECT DISTINCT id_level, 'New level' 
+FROM new_class 
+WHERE id_level NOT IN (
+                   SELECT id_level 
+				  FROM level_game)
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE PLAY_INCOMPLETED
+(SELECT * FROM PLAY WHERE completed = 'FALSE');
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE PLAY_INCOMPLETED_W
+(SELECT id_game, id_system_user FROM PLAY
+WHERE completed = 'FALSE');
+
+
+
+
+
+
+
+
+
+UPDATE new_class set id_level = 20 
+WHERE id_level IN (SELECT id_level FROM new_level_game)
+
+
+
+
+
+
+
+
+

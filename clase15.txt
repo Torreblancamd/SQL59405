@@ -1,0 +1,103 @@
+#VARIABLES
+
+
+
+#EJEMPLO 1
+SET @num_uno = 20;
+
+SELECT  @num_uno
+
+
+
+
+
+#EJEMPLO 2
+
+SET @num_uno = 20;
+SET @num_dos = 30;
+
+SELECT  @num_uno + @num_dos
+
+
+
+
+#EJEMPLO 3
+
+SET @id = 3;
+
+SELECT *
+FROM localidades 
+WHERE pais_id = @id
+
+
+
+
+
+
+
+
+
+
+DELIMITER //
+CREATE FUNCTION calcular_litros_de_pintura(largo INT, alto INT, total_manos INT) RETURNS FLOAT
+NO SQL
+BEGIN
+	DECLARE resultado FLOAT;
+    	DECLARE litro_x_m2 FLOAT;
+	SET litro_x_m2 = 0.10;
+	SET resultado = ((largo * alto) * total_manos) * litro_x_m2;
+	RETURN resultado;
+END//
+DELIMITER ;
+
+
+
+
+
+
+
+DELIMITER //
+CREATE FUNCTION Nombre_Capital(pais varchar(20)) RETURNS varchar(20) 
+DETERMINISTIC
+BEGIN  
+    DECLARE provincia VARCHAR(20);  
+    IF pais = "Argentina" THEN  
+        SET provincia = 'CABA';  
+    ELSEIF pais = "Brasil" THEN  
+        SET provincia = 'Brasilia';      
+    END IF;     
+    RETURN (provincia);  
+END//
+DELIMITER ;
+
+
+
+
+
+
+SELECT *, Nombre_Capital(nombre_pais)
+FROM pais
+
+
+
+
+
+
+
+DROP FUNCTION Provincia;
+
+
+
+
+
+DELIMITER //
+CREATE FUNCTION get_game(id_game int) RETURNS varchar(25) 
+BEGIN  
+    DECLARE nombre VARCHAR(25);
+    SELECT name	INTO nombre FROM game WHERE id_game = id_game;  
+    RETURN nombre;
+END//
+DELIMITER ;
+
+
+

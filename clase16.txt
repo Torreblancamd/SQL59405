@@ -1,0 +1,235 @@
+
+
+
+DELIMITER //
+CREATE PROCEDURE BuscarPais(IN id int)
+BEGIN
+	SELECT * FROM pais WHERE pais_id = id
+END //
+DELIMITER ;
+
+
+
+
+CALL BuscarPais(1);
+
+
+
+
+
+
+
+
+
+
+DELIMITER //
+CREATE PROCEDURE BuscarLocalidad(IN nombre char(40))
+BEGIN
+	IF nombre != "" THEN
+		SELECT * FROM localidades WHERE description LIKE CONCAT("%",nombre,"%");
+    END IF;
+END //
+DELIMITER ;
+
+
+
+CALL BuscarLocalidadDos("R")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER //
+CREATE PROCEDURE BuscarLocalidadDos(IN nombre char(40))
+BEGIN
+	IF nombre != "" THEN
+		SELECT * FROM localidades WHERE description LIKE CONCAT("%",nombre,"%");
+    ELSE
+    	SELECT * FROM localidades; 
+    END IF;
+END //
+DELIMITER ;
+
+
+
+CALL BuscarLocalidadDos("")
+
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE GetCantPais (IN  pais VARCHAR(25),OUT total INT)
+BEGIN
+	SELECT COUNT(*)	INTO total
+	FROM pais
+	WHERE nombre_pais = pais;
+END$$
+
+DELIMITER ;
+
+
+
+CALL GetCantPais("Argentina",@total)
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER //
+CREATE PROCEDURE nuevo_pais(IN id int, IN nombre CHAR(40), OUT status CHAR(40))
+BEGIN
+	IF nombre != "" THEN
+		INSERT INTO pais(pais_id, nombre_pais)VALUES(id, nombre);
+		SELECT *
+		FROM PAIS
+		ORDER BY pais_id DESC;
+    ELSE
+    	SET status = "ERROR EN EL PARAM";  
+    END IF;
+END //
+DELIMITER ;
+
+
+
+
+
+CALL nuevo_pais(22,"China",@status);
+SELECT @status
+
+
+
+CALL nuevo_pais(23,"",@status);
+SELECT @status
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER //
+CREATE PROCEDURE StringQ(IN sqlString VARCHAR(5000)) 
+BEGIN
+  SET @sqlv = sqlString;
+  PREPARE runSQL FROM @sqlv;
+  EXECUTE runSQL;
+  DEALLOCATE PREPARE runSQL;
+END //
+
+DELIMITER ;   
+
+
+
+
+
+
+CALL StringQ("SELECT * FROM pais");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DELIMITER //
+CREATE PROCEDURE OrdenadoPor(IN field CHAR(20)) 
+BEGIN
+	IF field != "" THEN
+		SET @game_order = CONCAT("ORDER BY ", field);
+	ELSE
+		SET @game_order = "";
+	END IF;
+	SET @clausula = CONCAT("SELECT * FROM game " , @game_order);
+	PREPARE runSQL FROM @clausula;
+	EXECUTE runSQL;
+	DEALLOCATE PREPARE runSQL; 
+END //
+
+DELIMITER ;   
+
+
+
+
+
+
+CALL StringQ("id_level");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
